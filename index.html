@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Embed Soundcloud clip</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.mapbox.com/mapbox.js/v2.2.3/mapbox.js'></script>
+    <!--  <script src="states.js"></script> -->
+    <script src="india-poly.js"></script>
+    <link href='https://api.mapbox.com/mapbox.js/v2.2.3/mapbox.css' rel='stylesheet' />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div id='map'></div>
+
+    <script>
+        L.mapbox.accessToken = 'pk.eyJ1Ijoic3JpdmlkeWEiLCJhIjoicXo2NTJKayJ9.m1P57SCwkp8_7N3TgYsVRg';
+        var map = L.mapbox.map('map', 'mapbox.streets')
+            .setView([22.370, 81.255], 5);
+        //       <strong>' + layer.feature.properties.name + '</strong>', { // closeButton: false // }); // }).addTo(map);
+        var polyLayer = L.mapbox.featureLayer().addTo(map);
+        polyLayer.on('layeradd', function (e) {
+            console.log('layer', e.layer);
+            var layer = e.layer;
+            var marker = layer,
+                feature = layer.feature;
+
+            // var feature = layer.feature;
+            var popupContent = '<a target="_blank" class="popup" href="' +
+                feature.properties.url + '">' +
+                feature.properties.sounds +
+                '<h2>' + feature.properties.title + '</h2>' + '</a>';
+
+            marker.bindPopup(popupContent, {
+                closeButton: false,
+                minWidth: 320
+            });
+
+            layer.on('click', function (e) {
+                // console.log(e)
+                resetStyle();
+                layer.setStyle({
+                    'color': 'red',
+
+                });
+                // e.target.feature.properties['fill'] = '#000000';
+                // e.target.feature.properties['fill-opacity'] = 1;
+            });
+
+            //            var mp3Layer = L.mapbox.featureLayer().addTo(map);
+            //            // Add the iframe in a custom popup using the custom feature properties
+            //            mp3Layer.on('layeradd', function (e) {
+            //                var marker = e.layer,
+            //                    feature = marker.feature;
+            //
+            //                // var feature = layer.feature;
+            //                var popupContent = '<a target="_blank" class="popup" href="' +
+            //                    feature.properties.url + '">' +
+            //                    feature.properties.sounds +
+            //                    '<h2>' + feature.properties.title + '</h2>' + '</a>';
+            //
+            //                marker.bindPopup(popupContent, {
+            //                    closeButton: false,
+            //                    minWidth: 320
+            //                });
+            //            });
+            //            mp3Layer.setGeoJSON(indiapoly);
+
+
+            //            var geojsonLayer = L.geoJson(indiapoly, {
+            //                onEachFeature: onEachState
+            //
+            //            }).addTo(map);
+            //            // geojsonLayer.redraw();
+            //
+            //            function onEachState(feature, layer) {
+            //                // console.log(feature);
+            //                layer.on('click', function (e) {
+            //                    // console.log(e);
+            //                    resetStyle();
+            //                    layer.setStyle({
+            //                        'color': '#000',
+            //                        'stroke': '#000'
+            //                    });
+            //                    geojsonLayer.resetStyle();
+            //                });
+            //            }
+
+
+        });
+        polyLayer.setGeoJSON(indiapoly);
+
+        function resetStyle() {
+            polyLayer.eachLayer(function (layer) {
+                layer.setStyle({
+                    'color': '#000'
+
+                });
+            });
+        }
+    </script>
+
+
+</body>
+
+</html>
