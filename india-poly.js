@@ -34,7 +34,7 @@ var indiapoly = {
                 "admin_leve": "null",
                 "rpath": "null",
                 "tags": "null",
-                sounds: '<iframe width="100%" height="70" scrolling = "no" frameborder = "no" src = "/music/34864__grololo__indian-street-delhi.wav" > < /iframe>'
+                sounds: '<iframe width="100%" height="70" scrolling = "no" frameborder = "no" src = "music/34864__grololo__indian-street-delhi.wav" > < /iframe>'
 
             },
             "geometry": {
